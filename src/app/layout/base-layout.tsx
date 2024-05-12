@@ -39,7 +39,12 @@ export function BaseLayout() {
           },
         )}
       >
-        <h1 className='color-white text-xl md:text-3xl'>Movie Time</h1>
+        <Link
+          to='/'
+          className='color-white text-xl md:text-3xl no-underline font-bold'
+        >
+          Movie Time
+        </Link>
 
         <div
           className={classNames(
