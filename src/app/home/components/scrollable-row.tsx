@@ -1,6 +1,6 @@
 import { useQuery } from 'react-query';
+import { MovieCard } from '~~/design-systems/movie-card';
 import { Movie, QueryResult } from '~~/typings';
-import { BASE_IMAGE_URL } from '~~/utils/request-url';
 
 interface ScrollableRow {
   url: string;
@@ -24,10 +24,9 @@ export function ScrollableRow({ url, title }: ScrollableRow) {
       <h6 className='color-white text-2xl'>{title}</h6>
       <div className='flex gap-4 w-full overflow-scroll no-scrollbar mt-5'>
         {data?.map((movie) => (
-          <img
-            src={`${BASE_IMAGE_URL}${movie.backdrop_path}`}
+          <MovieCard
+            movie={movie}
             key={movie.id}
-            className='w-70 h-40 object-cover hover:scale-105 transition-all-300 rounded-md'
           />
         ))}
       </div>

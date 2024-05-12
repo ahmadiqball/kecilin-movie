@@ -1,15 +1,16 @@
 import { useQuery } from 'react-query';
 import { Movie, QueryResult } from '~~/typings';
-import requestURL, { BASE_IMAGE_URL } from '~~/utils/request-url';
 import { ScrollableRow } from './components/scrollable-row';
+import { BASE_IMAGE_URL, requestURL } from '~~/utils/request-url';
 
 export function PageHome() {
   const { data: banner } = useQuery({
     queryKey: ['auth'],
     queryFn: async (): Promise<Movie> => {
-      const res = await fetch(requestURL.fetchNetflixOriginals);
+      const res = await fetch(requestURL.fetchMovies);
 
       const data: QueryResult = await res.json();
+      console.log('🚀 ~ queryFn: ~ data:', data);
 
       return data.results[0];
     },
