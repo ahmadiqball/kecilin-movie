@@ -11,6 +11,7 @@ const navigations = [
 
 export function BaseLayout() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [openMenu, setOpenMenu] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -32,25 +33,50 @@ export function BaseLayout() {
     <>
       <header
         className={classNames(
-          'fixed top-0 left-0 w-full px-20 py-4 flex justify-between items-center',
+          'fixed top-0 left-0 w-full px-5 md:px-20 py-4 flex justify-between items-center',
           {
             'bg-dark-600': isScrolled,
           },
         )}
       >
-        <h1 className='color-white'>Movie Time</h1>
+        <h1 className='color-white text-xl md:text-3xl'>Movie Time</h1>
 
-        <div className='flex items-center gap-4 text-sm'>
+        <div
+          className={classNames(
+            'flex items-center gap-4 text-sm absolute top-0 left-0 h-screen flex-col pt-30 w-full bg-dark-700/60 backdrop-blur-sm -z-1 transition-all-300 md:(relative flex-row w-fit translate-none backdrop-blur-none p-0 bg-transparent h-fit)',
+            {
+              '-translate-y-full': !openMenu,
+            },
+          )}
+        >
           {navigations.map((item) => (
             <Link
               key={item.route}
               to={item.route}
-              className='color-gray-300 no-underline hover:color-white'
+              className='color-gray-300 no-underline hover:color-white text-base'
+              onClick={() => setOpenMenu(false)}
             >
               {item.label}
             </Link>
           ))}
         </div>
+
+        <button
+          className='bg-transparent border-none flex flex-col justify-between h-4 block md:hidden'
+          onClick={() => setOpenMenu(!openMenu)}
+        >
+          <span
+            className={classNames('bg-white h-0.5 w-7 block transition-all-300', {
+              'rotate-45 translate-y-1.6': openMenu,
+            })}
+          />
+          <span className={classNames('bg-white h-0.5 w-7 ml-auto block', { hidden: openMenu })} />
+          <span
+            className={classNames('bg-white h-0.5 w-7 block transition-all-300', {
+              '-rotate-45 -translate-y-1.6': openMenu,
+            })}
+          />
+        </button>
       </header>
 
       <Outlet />
