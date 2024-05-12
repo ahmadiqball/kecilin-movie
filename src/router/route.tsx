@@ -1,4 +1,5 @@
 import { RouteObject, Navigate, createBrowserRouter } from 'react-router-dom';
+import { PageHome } from '~~/app/home/page-home';
 
 const routes: RouteObject[] = [
   {
@@ -8,6 +9,10 @@ const routes: RouteObject[] = [
         to='/'
       />
     ),
+  },
+  {
+    Component: PageHome,
+    path: '/',
   },
 ];
 
