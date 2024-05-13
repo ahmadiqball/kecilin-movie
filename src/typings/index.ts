@@ -23,3 +23,10 @@ export interface QueryResult {
   total_results: number;
   results: Array<Movie>;
 }
+
+export interface Genres {
+  genres: Array<{
+    id: number;
+    name: string;
+  }>;
+}
