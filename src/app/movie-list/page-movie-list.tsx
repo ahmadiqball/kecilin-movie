@@ -34,7 +34,6 @@ export function PageMovieList({ type }: PageMovieList) {
     queryFn: async (): Promise<QueryResult> => {
       if (type === 'bookmarks') {
         const pageFactor = (page - 1) * 20;
-        console.log('🚀 ~ PageMovieList ~ bookmaascrks:', bookmarks);
 
         const filteredBookmark = [...bookmarks]
           .filter(
@@ -45,7 +44,6 @@ export function PageMovieList({ type }: PageMovieList) {
           )
           .slice(0 + pageFactor, 20 + pageFactor);
 
-        console.log('🚀 ~ queryFn: ~ filteredBookmark:', filteredBookmark);
         return {
           results: filteredBookmark,
           page,
@@ -144,7 +142,7 @@ export function PageMovieList({ type }: PageMovieList) {
         {[...Array(10)].map((item, index) => (
           <Link
             to={`${pathname}?page=${index + 1 + startPageNav}`}
-            key={index}
+            key={`${item}-${index}`}
             className={classNames(
               'color-dark-600 dark:color-white bg-transparent border-none text-base',
               {
