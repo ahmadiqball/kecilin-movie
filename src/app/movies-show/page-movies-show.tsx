@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { useQuery } from 'react-query';
 import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import { Dropdown, DropdownOption } from '~~/design-systems/dropdown';
@@ -16,17 +16,25 @@ export function PageMovieAndShow({ type }: PageMovieAndShow) {
   const page = parseInt(params.get('page') || '1');
 
   const [filterGenre, setFilterGenre] = useState<string | number>('');
+  const [filterSearch, setFilterSearch] = useState('');
 
   const defaultGenres = { label: 'All Genres', value: '' };
 
   const { data } = useQuery({
-    queryKey: [`${type}-${filterGenre}-${page}`],
+    queryKey: [`${type}-${filterGenre}-${page}-${filterSearch}`],
     queryFn: async (): Promise<QueryResult> => {
-      const baseUrl = type === 'movies' ? requestURL.fetchMovies : requestURL.fetchTV;
+      let baseUrl = type === 'movies' ? requestURL.fetchMovies : requestURL.fetchTV;
 
-      const res = await fetch(`${baseUrl}&with_genres=${filterGenre}&page=${page}`);
+      if (filterSearch !== '') {
+        baseUrl = type === 'movies' ? requestURL.fetchSearchMovie : requestURL.fetchSearchTV;
+      }
+
+      const res = await fetch(
+        `${baseUrl}&with_genres=${filterGenre}&page=${page}&query=${encodeURI(filterSearch)}`,
+      );
 
       const data: QueryResult = await res.json();
+      console.log('🚀 ~ queryFn: ~ data:', data);
 
       return data;
     },
@@ -55,16 +63,33 @@ export function PageMovieAndShow({ type }: PageMovieAndShow) {
 
   const startPageNav = Math.floor(page / 10) * 10;
 
+  let searchTimeout: NodeJS.Timeout;
+  function searchChangeHandler(event: ChangeEvent<HTMLInputElement>) {
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(() => {
+      const value = event.target.value;
+      console.log('🚀 ~ searchTimeout=setTimeout ~ value:', value);
+      setFilterSearch(value);
+    }, 1000);
+  }
+
   return (
     <main className='bg-dark-700 min-h-screen w-full pt-25 px-5 md:px-25 pb-20'>
-      <section>
-        <div className='flex justify-between items-center'>
+      <section className='flex gap-4 flex-col md:flex-row'>
+        <div className='flex justify-between items-center grow'>
           <h1 className='text-white capitalize text-2xl'>{type}</h1>
           <Dropdown
             options={genres}
             defaultValue={defaultGenres}
             onChange={(value) => setFilterGenre(value.value)}
           />
+        </div>
+        <div className='relative'>
+          <input
+            className='bg-black/30 color-white border-white rounded-md py-2 px-1 pl-9 border-solid outline-none w-full md:w-80'
+            onChange={searchChangeHandler}
+          />
+          <i className='i-tmdb-search color-white text-lg absolute top-1/2 left-3 -translate-y-1/2' />
         </div>
       </section>
       <section className='grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-5'>
