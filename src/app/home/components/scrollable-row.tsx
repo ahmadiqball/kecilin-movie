@@ -20,8 +20,8 @@ export function ScrollableRow({ url, title }: ScrollableRow) {
   });
 
   return (
-    <div className='pl-5 md:pl-20'>
-      <h6 className='color-white text-2xl'>{title}</h6>
+    <div className='pl-5 mt-10 md:pl-20'>
+      <h6 className='color-dark-400 dark:color-white text-2xl'>{title}</h6>
       <div className='flex gap-4 w-full overflow-scroll no-scrollbar mt-5'>
         {data?.map((movie) => (
           <MovieCard

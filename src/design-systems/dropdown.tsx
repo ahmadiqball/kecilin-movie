@@ -25,7 +25,7 @@ export function Dropdown({ options, defaultValue, onChange }: Dropdown) {
   return (
     <div className='relative'>
       <button
-        className='w-40 bg-transparent color-white border-white rounded-md py-2 px-3 text-left flex items-center justify-between cursor-pointer'
+        className='w-40 bg-transparent color-dark-600 border-dark-600 dark:(color-white border-white) border-solid rounded-md py-2 px-3 text-left flex items-center justify-between cursor-pointer'
         onClick={() => setIsOpen(!isOpen)}
       >
         {value?.label}

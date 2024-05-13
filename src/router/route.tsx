@@ -1,7 +1,7 @@
 import { RouteObject, Navigate, createBrowserRouter } from 'react-router-dom';
 import { PageHome } from '~~/app/home/page-home';
 import { BaseLayout } from '~~/app/layout/base-layout';
-import { PageMovieAndShow } from '~~/app/movies-show/page-movies-show';
+import { PageMovieList } from '~~/app/movie-list/page-movie-list';
 
 const routes: RouteObject[] = [
   {
@@ -20,12 +20,16 @@ const routes: RouteObject[] = [
         index: true,
       },
       {
-        element: <PageMovieAndShow type='movies' />,
+        element: <PageMovieList type='movies' />,
         path: '/movies',
       },
       {
-        element: <PageMovieAndShow type='tv shows' />,
+        element: <PageMovieList type='tv shows' />,
         path: '/tv-shows',
+      },
+      {
+        element: <PageMovieList type='bookmarks' />,
+        path: '/bookmarks',
       },
     ],
   },
