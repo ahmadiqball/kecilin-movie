@@ -33,17 +33,19 @@ export function PageMovieList({ type }: PageMovieList) {
     queryKey: [queryKey],
     queryFn: async (): Promise<QueryResult> => {
       if (type === 'bookmarks') {
-        console.log('🚀 ~ queryFn: ~ bookmarks:', bookmarks);
         const pageFactor = (page - 1) * 20;
+        console.log('🚀 ~ PageMovieList ~ bookmaascrks:', bookmarks);
 
         const filteredBookmark = [...bookmarks]
           .filter(
             (movie) =>
-              (typeof filterGenre === 'string' || movie.genre_ids.includes(filterGenre)) &&
-              movie.title.toLowerCase().includes(filterSearch.toLowerCase()),
+              (typeof filterGenre === 'string' || movie.genre_ids?.includes(filterGenre)) &&
+              (movie.title?.toLowerCase().includes(filterSearch.toLowerCase()) ||
+                movie.name?.toLowerCase().includes(filterSearch.toLowerCase())),
           )
           .slice(0 + pageFactor, 20 + pageFactor);
 
+        console.log('🚀 ~ queryFn: ~ filteredBookmark:', filteredBookmark);
         return {
           results: filteredBookmark,
           page,

@@ -50,9 +50,9 @@ export function ModalMovie() {
 
   const Modal = (
     <div className='fixed z-100 top-0 left-0 h-screen w-screen bg-black/50'>
-      <div className='fixed top-1/2 left-1/2 -translate-1/2 bg-blue-200 color-dark-600 dark:(bg-dark-600 color-white) rounded-2.5 w-60/100 max-h-[90vh] overflow-scroll no-scrollbar'>
+      <div className='fixed top-1/2 left-1/2 -translate-1/2 bg-blue-200 color-dark-600 dark:(bg-dark-600 color-white) rounded-2.5 xl:w-60/100 max-h-[90vh] max-w-[95vw] md:max-w-[90vw] overflow-scroll no-scrollbar'>
         <button
-          className='bg-black/40 p-1 border-white border-solid rounded-full absolute right-6 top-6 hover:bg-black/80'
+          className='bg-black/40 p-1 border-white border-solid rounded-full absolute right-6 top-6 z-10 hover:bg-black/80'
           onClick={closeModal}
         >
           <i className='i-tmdb-close text-3xl color-white cursor-pointer' />
@@ -65,7 +65,7 @@ export function ModalMovie() {
         />
 
         <div className='flex justify-between items-center px-6 mt-5'>
-          <h3 className='text-2xl'>{modalMovie.title}</h3>
+          <h3 className='text-2xl'>{modalMovie.title || modalMovie.name}</h3>
           <button
             className='bg-transparent border-dark-600 dark:border-white border-solid p-2 rounded-full cursor-pointer'
             onClick={bookmarkHandler}
@@ -78,7 +78,7 @@ export function ModalMovie() {
             />
           </button>
         </div>
-        <div className='p-6 flex gap-8'>
+        <div className='p-6 flex flex-col md:flex-row gap-8'>
           <p className='text-sm'>{modalMovie.overview}</p>
           <div className='text-xs w-200'>
             {informations.map((item) => (

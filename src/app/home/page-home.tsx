@@ -18,12 +18,14 @@ export function PageHome() {
   return (
     <main className='pb-20 bg-blue-100 dark:bg-dark-700'>
       <section
-        className='bg-cover bg-center bg-[length:100%_100%] color-white'
+        className='bg-cover bg-center bg-[length:100%_100%]'
         style={{ backgroundImage: `url(${BASE_IMAGE_URL}${banner?.backdrop_path})` }}
       >
         <div className='bg-gradient-to-t from-blue-100 via-blue-100/40 to-blue-100/10 dark:(from-dark-700 via-dark-700/60 to-dark-700/40) h-screen px-5 md:px-20 flex flex-col justify-end pb-60'>
-          <h1 className='leading-[1.3] text-4xl md:(text-5xl max-w-4xl)'>{banner?.title}</h1>
-          <p className='mt-8 color-gray-100 text-xs line-clamp-3 md:(text-base max-w-3xl line-clamp-none)'>
+          <h1 className='leading-[1.3] text-4xl md:(text-5xl max-w-4xl) color-dark-300 dark:color-white'>
+            {banner?.title}
+          </h1>
+          <p className='mt-8 color-gray-800 dark:color-gray-100 text-xs line-clamp-3 md:(text-base max-w-3xl line-clamp-none)'>
             {banner?.overview}
           </p>
         </div>
